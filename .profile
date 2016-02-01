@@ -22,7 +22,7 @@ if ! { [ "$TERM" = "screen" ]; } then
 fi
 
 export PS1="\\[\[\e[0;32m\u \[\e[0;36m\w \[\e[0;37m\t \[\e[0;35m[$PS_GIT_BRANCH]\n\[\e[0;37m\]$ " 
-if [ "${PWD}" != /Users/calebwangloaner/sandbox/asana ]; then
+if [ "${PWD}" != /Users/calebwang/sandbox/asana ]; then
     codez
 fi
 
