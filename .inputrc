@@ -2,3 +2,4 @@
 "\e[B": history-search-forward
 "\e[C": forward-char
 "\e[D": backward-char
+set completion-ignore-case on
