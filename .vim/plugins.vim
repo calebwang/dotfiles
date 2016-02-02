@@ -2,6 +2,7 @@
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'airblade/vim-gitgutter'
 let g:ackprg = 'ag --vimgrep'
 Plugin 'mileszs/ack.vim'
 let g:ctrlp_max_files=0
