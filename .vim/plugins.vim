@@ -2,6 +2,7 @@
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 let g:ackprg = 'ag --vimgrep'
 Plugin 'mileszs/ack.vim'

@@ -16,7 +16,9 @@ set et
 " Trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 
-set paste
+" Location list opens in new tab
+" set switchbuf+=usetab,newtab
+
 
 map <C-l> <C-w>l
 map <C-h> <C-w>h
@@ -30,3 +32,5 @@ set backspace=indent,eol,start
 syntax on
 colorscheme monokai
 colorscheme molokai
+
+set paste
