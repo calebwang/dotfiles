@@ -15,10 +15,10 @@ export PS1="\\[\[\e[0;32m\u \[\e[0;36m\w \[\e[0;37m\t \[\e[0;35m[$PS_GIT_BRANCH]
 export EDITOR=vim
 
 function logz {
-	cd ~/.logs/$today
+  cd ~/.logs/$today
 }
 
-function rlog {
+function lessr {
   tr -cd '\11\12\33\40-\176' < $1 | less -R
 }
 
