@@ -3,10 +3,11 @@ export CLICOLOR=1
 alias tmuxn='tmux new-session -s $$'
 alias ffs='sudo "$(history -p !!)"'
 
-mkdir -p ~/.logs/$today
 
 today=$(date +%Y)/$(date +%m)/$(date +%d)
 now=$(date +%H):$(date +%M):$(date +%S)
+
+mkdir -p ~/.logs/$today
 
 export PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(history 1)" >> ~/.logs/'$today'/bash-history.log; fi'
 export PS_GIT_BRANCH="\$(git branch 2>/dev/null |grep '* ' |cut -d' ' -f2-)"
