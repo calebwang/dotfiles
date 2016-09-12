@@ -2,6 +2,7 @@ export CLICOLOR=1
 
 alias tmuxn='tmux new-session -s $$'
 alias ffs='sudo "$(history -p !!)"'
+alias grb='git for-each-ref --count=15 --sort=-authordate:iso8601 refs/heads/ --format='"'"'%(color:yellow)%(HEAD) %(refname:short)'"'"
 
 
 today=$(date +%Y)/$(date +%m)/$(date +%d)
@@ -34,7 +35,7 @@ if ! { [ "$TERM" = "screen" ]; } then
 fi
 
 if { [ "$TERM" = "screen" ]; } then
-	session_name=$(tmux display-message -p '#S')
+	session_name=$(tmux display-message -p '#S-#I-#P')
 	log_name=~/.logs/$today/tmux-$session_name-$now.log
 	tmux pipe-pane -o "exec cat >>$log_name"
 fi
