@@ -16,7 +16,7 @@ function now {
 mkdir -p ~/.logs/$(today)
 
 export PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(history 1)" >> ~/.logs/'$today'/bash-history.log; fi'
-export PS_GIT_BRANCH="\$(git rev-parse --abbrev-ref HEAD | cut -d' ' -f2-)"
+export PS_GIT_BRANCH="\$(git rev-parse --abbrev-ref HEAD 2>/dev/null | cut -d' ' -f2-)"
 export PS1="\\[\[\e[0;32m\u \[\e[0;36m\w \[\e[0;37m\t \[\e[0;35m[$PS_GIT_BRANCH]\n\[\e[0;37m\]$ "
 export EDITOR=vim
 
