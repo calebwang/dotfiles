@@ -6,19 +6,26 @@ alias grb='git for-each-ref --count=15 --sort=-authordate:iso8601 refs/heads/ --
 
 
 function today {
-    echo $(date +%Y)/$(date +%m)/$(date +%d)
+    echo $(date +%Y/%m/%d)
 }
 
 function now {
-    echo $(date +%H)$(date +%M)$(date +%S)
+    echo $(date +%H:%M:%S)
 }
 
 mkdir -p ~/.logs/$(today)
 
-export PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(history 1)" >> ~/.logs/'$(today)'/bash-history.log; fi'
-export PS_GIT_BRANCH="\$(git rev-parse --abbrev-ref HEAD 2>/dev/null | cut -d' ' -f2-)"
-export PS1="\\[\[\e[0;32m\u \[\e[0;36m\w \[\e[0;37m\t \[\e[0;35m[$PS_GIT_BRANCH]\n\[\e[0;37m\]$ "
-export EDITOR=vim
+function log_history {
+	if [ $(id -u) -ne 0 ]; then
+		echo "$(today).$(now) $tmux_log_name $(pwd) $(history 1)" >> ~/.logs/$(today)/bash-history.log;
+	fi
+}
+
+function update_tmux_log_dir {
+	if [ "$TERM" = "screen" ] && [ "$tmux_date" = "$(today)" ]; then
+		tmux_log_auto;
+	fi
+}
 
 function logz {
   cd ~/.logs/$(today)
@@ -47,10 +54,17 @@ function tmux_log() {
 }
 
 function tmux_log_auto {
+	mkdir -p ~/.logs/$(today)
     tmux_info=$(tmux display-message -p '#S-#I-#P')
     tmux_name=$(tmux display-message -p '#W')
-    tmux_log $tmux_name-$(now)-$tmux_info
+	tmux_date=$(today)
+    tmux_log $tmux_name-$tmux_info
 }
+
+export PROMPT_COMMAND='log_history && update_tmux_log_dir'
+export PS_GIT_BRANCH="\$(git rev-parse --abbrev-ref HEAD 2>/dev/null | cut -d' ' -f2-)"
+export PS1="\\[\[\e[0;32m\u \[\e[0;36m\w \[\e[0;37m\t \[\e[0;35m[$PS_GIT_BRANCH]\n\[\e[0;37m\]$ "
+export EDITOR=vim
 
 if { [ "$TERM" = "screen" ]; } then
     tmux_log_auto
