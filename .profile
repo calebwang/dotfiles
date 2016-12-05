@@ -1,9 +1,10 @@
 export CLICOLOR=1
+export HISTSIZE="INF"
 
 alias tmuxn='tmux new-session -s $$'
 alias ffs='sudo "$(history -p !!)"'
 alias grb='git for-each-ref --count=15 --sort=-authordate:iso8601 refs/heads/ --format='"'"'%(color:yellow)%(HEAD) %(refname:short)'"'"
-
+alias gp='git push -u origin "$(git rev-parse --abbrev-ref HEAD)"'
 
 function today {
     echo $(date +%Y/%m/%d)
@@ -16,13 +17,17 @@ function now {
 mkdir -p ~/.logs/$(today)
 
 function log_history {
+	today_log_dir=~/.logs/$(today)
 	if [ $(id -u) -ne 0 ]; then
-		echo "$(today).$(now) $tmux_log_name $(pwd) $(history 1)" >> ~/.logs/$(today)/bash-history.log;
+		if [ ! -d "$today_log_dir" ]; then
+			mkdir -p $today_log_dir
+		fi
+		echo "$(today).$(now) $tmux_log_name $(pwd) $(history 1)" >> $today_log_dir/bash-history.log;
 	fi
 }
 
 function update_tmux_log_dir {
-	if [ "$TERM" = "screen" ] && [ "$tmux_date" = "$(today)" ]; then
+	if [ "$TERM" = "screen" ] && ! [ "$tmux_date" = "$(today)" ]; then
 		tmux_log_auto;
 	fi
 }
