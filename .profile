@@ -37,7 +37,7 @@ function logz {
 }
 
 function lessr {
-  tr -cd '\11\12\33\40-\176' < $1 | less -R
+  tr -cd '\11\12\33\40-\176' < "${1:-/dev/stdin}" | less -R
 }
 
 
@@ -51,6 +51,10 @@ if ! { [ "$TERM" = "screen" ]; } then
     tmuxn
 fi
 
+
+function tmux_stop_log() {
+	tmux pipe-pane
+}
 
 function tmux_log() {
 	tmux pipe-pane
@@ -66,11 +70,24 @@ function tmux_log_auto {
     tmux_log $tmux_name-$tmux_info
 }
 
-export PROMPT_COMMAND='log_history && update_tmux_log_dir'
+export PROMPT_COMMAND='log_history'
 export PS_GIT_BRANCH="\$(git rev-parse --abbrev-ref HEAD 2>/dev/null | cut -d' ' -f2-)"
 export PS1="\\[\[\e[0;32m\u \[\e[0;36m\w \[\e[0;37m\t \[\e[0;35m[$PS_GIT_BRANCH]\n\[\e[0;37m\]$ "
 export EDITOR=vim
 
-if { [ "$TERM" = "screen" ]; } then
-    tmux_log_auto
-fi
+#if { [ "$TERM" = "screen" ]; } then
+    # tmux_log_auto
+#fi
+
+function histgrep {
+	find ~/.logs -name "*bash-history.log" | xargs grep "$1"
+}
+
+function promptyn {
+	read -p "$* [y/n]: " yn
+	if [[ $yn == [Yy]* ]]; then
+		return 0 ;
+	else
+		return 1
+	fi
+}
