@@ -12,6 +12,7 @@ Plugin 'leafgarland/typescript-vim'
 Plugin 'Shougo/vimproc.vim'
 let g:tsuquyomi_disable_quickfix = 1
 Plugin 'Quramy/tsuquyomi'
+Plugin 'rking/ag.vim'
 
 call vundle#end()
 
