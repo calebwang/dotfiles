@@ -46,8 +46,11 @@ function tabname {
 }
 
 _trap_exit() {
-	tmux kill-session
+	if { [[ `tmux ls` == *$$* ]]; } then
+		tmux kill-session
+	fi
 }
+
 if ! { [ "$TERM" = "screen" ]; } then
 	trap _trap_exit EXIT
 fi
