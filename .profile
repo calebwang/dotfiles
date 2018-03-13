@@ -3,8 +3,9 @@ export HISTSIZE="INF"
 
 alias tmuxn='tmux new-session -s $$'
 alias ffs='sudo "$(history -p !!)"'
-alias grb='git for-each-ref --count=15 --sort=-authordate:iso8601 refs/heads/ --format='"'"'%(color:yellow)%(HEAD) %(refname:short)'"'"
 alias gp='git push -u origin "$(git rev-parse --abbrev-ref HEAD)"'
+
+source ~/dotfiles/grb.sh
 
 function today {
     echo $(date +%Y/%m/%d)
@@ -62,6 +63,10 @@ fi
 function tmux_log() {
 	tmux pipe-pane
     tmux_log_name=~/.logs/$(today)/tmux-$1.log
+	if ! [ -e $tmux_log_name ]; then
+		touch $tmux_log_name
+		chmod 600 $tmux_log_name
+	fi
 	tmux pipe-pane "exec cat >>$tmux_log_name"
 }
 
