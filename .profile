@@ -5,8 +5,6 @@ alias tmuxn='tmux new-session -s $$'
 alias ffs='sudo "$(history -p !!)"'
 alias gp='git push -u origin "$(git rev-parse --abbrev-ref HEAD)"'
 
-source ~/dotfiles/grb.sh
-
 function today {
     echo $(date +%Y/%m/%d)
 }
