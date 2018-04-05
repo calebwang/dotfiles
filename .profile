@@ -2,8 +2,8 @@ export CLICOLOR=1
 export HISTSIZE="INF"
 
 alias tmuxn='tmux new-session -s $$'
-alias ffs='sudo "$(history -p !!)"'
 alias gp='git push -u origin "$(git rev-parse --abbrev-ref HEAD)"'
+alias b='git checkout -'
 
 function today {
     echo $(date +%Y/%m/%d)
