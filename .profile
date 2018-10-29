@@ -1,7 +1,7 @@
 export CLICOLOR=1
 export HISTSIZE="INF"
 
-alias tmuxn='tmux new-session -s $$'
+alias tmuxn='tmux new-session -s $$' 
 alias gp='git push -u origin "$(git rev-parse --abbrev-ref HEAD)"'
 alias b='git checkout -'
 
@@ -76,7 +76,7 @@ function tmux_log_auto {
     tmux_log $tmux_name-$tmux_info
 }
 
-export PROMPT_COMMAND='log_history && tmux_log_auto'
+export PROMPT_COMMAND='log_history'
 export PS_GIT_BRANCH="\$(git rev-parse --abbrev-ref HEAD 2>/dev/null | cut -d' ' -f2-)"
 export PS1="\\[\[\e[0;32m\u \[\e[0;36m\w \[\e[0;37m\t \[\e[0;35m[$PS_GIT_BRANCH]\n\[\e[0;37m\]$ "
 export EDITOR=vim
