@@ -1,7 +1,9 @@
 export CLICOLOR=1
 export HISTSIZE="INF"
 
-alias tmuxn='tmux new-session -s $$' 
+shopt -s histappend
+
+alias tmuxn='tmux -u new-session -s $$'
 alias gp='git push -u origin "$(git rev-parse --abbrev-ref HEAD)"'
 alias b='git checkout -'
 
@@ -19,9 +21,9 @@ function log_history {
 	today_log_dir=~/.logs/$(today)
 	if [ $(id -u) -ne 0 ]; then
 		if [ ! -d "$today_log_dir" ]; then
-			mkdir -p $today_log_dir
+			mkdir -p "$today_log_dir"
 		fi
-		echo "$(today).$(now) $tmux_log_name $(pwd) $(history 1)" >> $today_log_dir/bash-history.log;
+		echo "$(today).$(now) $tmux_log_name $(pwd) $(history 1)" >> "$today_log_dir"/bash-history.log;
 	fi
 }
 
@@ -76,7 +78,7 @@ function tmux_log_auto {
     tmux_log $tmux_name-$tmux_info
 }
 
-export PROMPT_COMMAND='log_history'
+export PROMPT_COMMAND='log_history; history -a'
 export PS_GIT_BRANCH="\$(git rev-parse --abbrev-ref HEAD 2>/dev/null | cut -d' ' -f2-)"
 export PS1="\\[\[\e[0;32m\u \[\e[0;36m\w \[\e[0;37m\t \[\e[0;35m[$PS_GIT_BRANCH]\n\[\e[0;37m\]$ "
 export EDITOR=vim

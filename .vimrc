@@ -12,6 +12,8 @@ set ruler
 set ts=4
 set sw=4
 set sts=4
+
+set paste
 set et
 " Trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
@@ -32,5 +34,3 @@ set backspace=indent,eol,start
 syntax on
 colorscheme monokai
 colorscheme molokai
-
-set paste
