@@ -5,7 +5,9 @@ shopt -s histappend
 
 alias tmuxn='tmux -u new-session -s $$'
 alias gp='git push -u origin "$(git rev-parse --abbrev-ref HEAD)"'
-alias b='git checkout -'
+alias gb='git checkout -'
+alias gl='git log --pretty=format:"%C(yellow)%h %Cblue%>(12)%ad %Cgreen%<(7)%aN%Cred%d %Creset%s"'
+
 
 function today {
     echo $(date +%Y/%m/%d)
