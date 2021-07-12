@@ -101,3 +101,5 @@ function promptyn {
 		return 1
 	fi
 }
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
