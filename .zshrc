@@ -28,7 +28,7 @@ export EDITOR=vim
 
 # AUTOCOMPLETE
 
-autoload -U compinit && compinit
+autoload -U compinit && compinit -i -C
 
 setopt SHARE_HISTORY
 HISTFILE=$HOME/.zhistory
@@ -39,5 +39,17 @@ setopt HIST_EXPIRE_DUPS_FIRST
 bindkey '\e[A' history-search-backward
 bindkey '\e[B' history-search-forward
 
+path+=('/Users/caleb/code/git-recent-branch-switcher')
+path+=('/Users/caleb/code/git-scripts')
+path+=('/Users/caleb/code/git-scripts')
 
-export PATH="$HOME/code/git-recent-branch-switcher:$PATH"
+alias gp='git push'
+# Define the gcom function
+gcom() {
+  if [ "$#" -eq 0 ]; then
+    git commit -m "commit"
+  else
+    git commit -m "$*"
+  fi
+}
+alias gca='git diff && git add . && git commit --amend
